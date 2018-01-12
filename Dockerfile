@@ -55,4 +55,3 @@ ADD . ${HARNESS_DIR}/hugsnag-android
 COPY android.sh ${HARNESS_DIR}/android.sh
 WORKDIR ${HARNESS_DIR}
 CMD ["./hugsnag.sh", "android"]
-#CMD ["sleep", "86400"]

@@ -1,23 +1,37 @@
 #!/bin/bash
 
 function launch_emulator() {
+  # always run from tools dir rather than android home due to rel path bug
   cd $ANDROID_HOME/tools
   echo "Launching Android Emulator"
 
   # see https://developer.android.com/studio/run/emulator-commandline.html#starting
-  emulator @NexusEmulator -verbose -no-boot-anim -noaudio -no-snapshot -no-window &
+  emulator @NexusEmulator -verbose -no-window -no-boot-anim -no-audio &
   EMULATOR_PID=$!
-  echo "Waiting for device..."
-  adb wait-for-device
-  echo "Device ready!"
+  wait_for_device
+  cd ${HARNESS_DIR}
+}
+
+# Waits for boot to complete (see https://android.stackexchange.com/a/83747)
+function wait_for_device() {
+    echo "Waiting for device..."
+    adb wait-for-device
+    echo "Device booting, this may take several minutes..."
+
+    A=$(adb shell getprop sys.boot_completed | tr -d '\r')
+
+    while [ "$A" != "1" ]; do
+        sleep 2
+        echo "Polling device status"
+        A=$(adb shell getprop sys.boot_completed | tr -d '\r')
+    done
+    echo "Device ready!"
 }
 
 function build_test_app() {
   echo "Running Android Tests"
-  rm $APK_FILE
-  cd /opt/hugsnag-android
+  cd ${PROJ_DIR}
   ./gradlew testharness:assembleRelease
-  cd /opt
 }
 
 function poll_app() {
@@ -29,11 +43,8 @@ function poll_app() {
 }
 
 function launch_test_app() {
-  echo "Launching test app"
-  adb devices
-  echo "uninstalling previous app"
-  adb uninstall com.bugsnag.android.hugsnag
-  adb install $APK_FILE
+  echo "Installing test app"
+  adb install testharness/build/outputs/apk/release/testharness-release.apk
   adb shell am start -n com.bugsnag.android.hugsnag/com.bugsnag.android.MainActivity
   echo "Started MainActivity"
   poll_app
@@ -52,9 +63,10 @@ function launch_test_app() {
 function on_exit() {
   echo "Cleaning up Android Env"
   kill -9 $EMULATOR_PID
+  cd ${HARNESS_DIR}
 }
 
-APK_FILE="/opt/hugsnag-android/testharness/build/outputs/apk/release/testharness-release.apk"
+PROJ_DIR="hugsnag-android"
 
 trap on_exit EXIT
 launch_emulator

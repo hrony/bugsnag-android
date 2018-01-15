@@ -1,0 +1,9 @@
+FROM bugsnag-android
+
+# Copy the current directory contents into the container at /hugsnag
+ADD . ${HARNESS_DIR}/hugsnag-android
+
+# Copy notifier specific script
+COPY android.sh ${HARNESS_DIR}/android.sh
+WORKDIR ${HARNESS_DIR}
+CMD ["./hugsnag.sh", "android"]

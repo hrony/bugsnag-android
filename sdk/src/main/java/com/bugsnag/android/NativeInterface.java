@@ -188,6 +188,11 @@ public class NativeInterface {
         return getClient().config.getNotifyReleaseStages();
     }
 
+    public static boolean shouldNotify() {
+        Configuration config = getClient().getConfig();
+        return config.shouldNotifyForReleaseStage(getReleaseStage());
+    }
+
     public static void setUser(final String id,
                                final String email,
                                final String name) {

@@ -4,9 +4,9 @@
   >
 
  <application>
-   <meta-data
-     android:name="com.bugsnag.android.API_KEY"
-     android:value="5e31163b19d60ba4df10a65503b6b18e" />
+   <!--<meta-data-->
+     <!--android:name="com.bugsnag.android.API_KEY"-->
+     <!--android:value="5e31163b19d60ba4df10a65503b6b18e" />-->
  </application>
 
 </manifest>

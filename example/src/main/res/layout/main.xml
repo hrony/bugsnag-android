@@ -23,28 +23,28 @@
       android:text="@string/unhandled_exceptions" />
 
     <Button
-      style="@style/ButtonTheme"
       android:id="@+id/btn_fatal_crash"
+      style="@style/ButtonTheme"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/trigger_fatal_crash" />
+      android:text="Library Crash" />
 
     <View style="@style/separator" />
 
     <!-- Trigger handled exceptions -->
     <TextView
+
       style="@style/header_text"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      android:text="@string/handled_exceptions" />
+      android:layout_marginBottom="8dp" />
 
     <Button
+      android:id="@+id/btn_app_crash"
       style="@style/ButtonTheme"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:onClick="crashHandled"
-      android:text="@string/trigger_nonfatal_crash" />
+      android:text="App Crash" />
 
     <Button
       style="@style/ButtonTheme"

@@ -29,3 +29,8 @@ android {
 
 apply plugin: 'com.bugsnag.android.gradle'
 apply from: "../checkstyle.gradle"
+
+bugsnag {
+    endpoint "http://localhost:9000"
+    apiKey "e7cfd6156fa5de611558c49bb7a638c7"
+}

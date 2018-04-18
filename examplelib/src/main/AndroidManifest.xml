@@ -1,12 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.bugsnag.examplelib"
-  android:versionCode="1"
+  android:versionCode="100"
+  android:versionName="100"
   >
 
  <application>
-   <!--<meta-data-->
-     <!--android:name="com.bugsnag.android.API_KEY"-->
-     <!--android:value="5e31163b19d60ba4df10a65503b6b18e" />-->
+   <meta-data
+     android:name="com.bugsnag.android.API_KEY"
+     android:value="e7cfd6156fa5de611558c49bb7a638c7" />
  </application>
 
 </manifest>

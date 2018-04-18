@@ -16,6 +16,16 @@ repositories {
     google()
 }
 
+
+allprojects {
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+
 android {
 
     compileSdkVersion Integer.parseInt(project.ANDROID_COMPILE_SDK_VERSION)
@@ -45,7 +55,8 @@ android {
 
 dependencies {
     compile project(":sdk")
-    compile project(":examplelib")
+    compile(name:'examplelib-release', ext:'aar')
+//    compile project(":examplelib")
 
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.android.support:support-v4:$supportLibVersion"
